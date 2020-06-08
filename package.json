@@ -3,6 +3,9 @@
   "author": "Andreas Kollegger",
   "module": "dist/remark-lint-play-mdx.esm.js",
   "version": "0.1.0",
+  "publishConfig": {
+    "access": "public"
+  },
   "license": "MIT",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
@@ -54,5 +57,8 @@
     "tsdx": "^0.13.2",
     "tslib": "^2.0.0",
     "typescript": "^3.9.5"
+  },
+	"np": {
+    "yarn": false
   }
 }
