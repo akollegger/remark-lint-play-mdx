@@ -59,6 +59,7 @@
     "typescript": "^3.9.5"
   },
 	"np": {
-    "yarn": false
+    "yarn": false,
+    "tests": false
   }
 }

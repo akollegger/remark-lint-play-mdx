@@ -1,7 +1,11 @@
-import {VFile} from 'vfile'
+import { VFile } from 'vfile';
 
-import {remarkLintPlayMdx} from '../src/'
-import {REJECTED_ELEMENT_REASON, REJECTED_ATTR_REASON, REJECTED_SYNTAX_REASON_PREFIX} from '../src/remark-lint-restrict-jsx'
+import { remarkLintPlayMdx } from '../src/';
+import {
+  REJECTED_ELEMENT_REASON,
+  REJECTED_ATTR_REASON,
+  REJECTED_SYNTAX_REASON_PREFIX,
+} from '../src/remark-lint-restrict-jsx';
 
 describe('remark lint playable MDX', () => {
   it('accepts basic markdown', () => {
@@ -10,7 +14,7 @@ describe('remark lint playable MDX', () => {
 - two
 - three
 `;
-remarkLintPlayMdx().process(md, (_, file:VFile) => {
+    remarkLintPlayMdx().process(md, (_, file: VFile) => {
       expect(file.messages).toHaveLength(0);
     });
   });
@@ -21,10 +25,11 @@ remarkLintPlayMdx().process(md, (_, file:VFile) => {
 
 >   This blockquote uses three spaces, which is bad
 `;
-remarkLintPlayMdx()
-    .process(md, (_, file:VFile) => {
+    remarkLintPlayMdx().process(md, (_, file: VFile) => {
       expect(file.messages).toHaveLength(1);
-      expect(file.messages[0].reason).toMatch(/Remove 2 spaces between block quote and content/)
+      expect(file.messages[0].reason).toMatch(
+        /Remove 2 spaces between block quote and content/
+      );
     });
   });
   it('complains about blockquote initial indentation', () => {
@@ -32,10 +37,11 @@ remarkLintPlayMdx()
 
  > This blockquote is indented before the blockquote character, which is bad
 `;
-remarkLintPlayMdx()
-    .process(md, (_, file:VFile) => {
+    remarkLintPlayMdx().process(md, (_, file: VFile) => {
       expect(file.messages).toHaveLength(1);
-      expect(file.messages[0].reason).toMatch(/Remove 1 space between block quote and content/)
+      expect(file.messages[0].reason).toMatch(
+        /Remove 1 space between block quote and content/
+      );
     });
   });
 
@@ -46,8 +52,7 @@ remarkLintPlayMdx()
 - [ ] this is not yet done
 
 `;
-remarkLintPlayMdx()
-    .process(md, (_, file:VFile) => {
+    remarkLintPlayMdx().process(md, (_, file: VFile) => {
       expect(file.messages).toHaveLength(0);
     });
   });
@@ -59,10 +64,11 @@ remarkLintPlayMdx()
 - [ ] this is not yet done
 
 `;
-remarkLintPlayMdx()
-    .process(md, (_, file:VFile) => {
+    remarkLintPlayMdx().process(md, (_, file: VFile) => {
       expect(file.messages).toHaveLength(1);
-      expect(file.messages[0].reason).toMatch(/Checked checkboxes should use `x` as a marker/)
+      expect(file.messages[0].reason).toMatch(
+        /Checked checkboxes should use `x` as a marker/
+      );
     });
   });
 
@@ -73,10 +79,11 @@ remarkLintPlayMdx()
 - [\t] this is not yet done
 
 `;
-remarkLintPlayMdx()
-    .process(md, (_, file:VFile) => {
+    remarkLintPlayMdx().process(md, (_, file: VFile) => {
       expect(file.messages).toHaveLength(1);
-      expect(file.messages[0].reason).toMatch(/Unchecked checkboxes should use ` ` as a marker/);
+      expect(file.messages[0].reason).toMatch(
+        /Unchecked checkboxes should use ` ` as a marker/
+      );
     });
   });
 
@@ -88,8 +95,7 @@ MATCH (n) RETURN n
 \`\`\`
 
 `;
-remarkLintPlayMdx()
-    .process(md, (_, file:VFile) => {
+    remarkLintPlayMdx().process(md, (_, file: VFile) => {
       expect(file.messages).toHaveLength(0);
     });
   });
@@ -100,15 +106,13 @@ remarkLintPlayMdx()
     MATCH (n) RETURN n
 
 `;
-remarkLintPlayMdx()
-    .process(md, (_, file:VFile) => {
+    remarkLintPlayMdx().process(md, (_, file: VFile) => {
       expect(file.messages).toHaveLength(1);
       expect(file.messages[0].reason).toMatch(/Code blocks should be fenced/);
     });
   });
 
-
-  it('accepts codeblocks that are fenced with `\``', () => {
+  it('accepts codeblocks that are fenced with ```', () => {
     const md = `# title
 
 \`\`\`cypher
@@ -116,8 +120,7 @@ MATCH (n) RETURN n
 \`\`\`
 
 `;
-remarkLintPlayMdx()
-    .process(md, (_, file:VFile) => {
+    remarkLintPlayMdx().process(md, (_, file: VFile) => {
       expect(file.messages).toHaveLength(0);
     });
   });
@@ -128,10 +131,11 @@ remarkLintPlayMdx()
     MATCH (n) RETURN n
 ~~~
 `;
-remarkLintPlayMdx()
-    .process(md, (_, file:VFile) => {
+    remarkLintPlayMdx().process(md, (_, file: VFile) => {
       expect(file.messages).toHaveLength(1);
-      expect(file.messages[0].reason).toMatch(/Fenced code should use `` ` `` as a marker/);
+      expect(file.messages[0].reason).toMatch(
+        /Fenced code should use `` ` `` as a marker/
+      );
     });
   });
 
@@ -140,8 +144,7 @@ remarkLintPlayMdx()
 
 _this will be italicized_
 `;
-remarkLintPlayMdx()
-    .process(md, (_, file:VFile) => {
+    remarkLintPlayMdx().process(md, (_, file: VFile) => {
       expect(file.messages).toHaveLength(0);
     });
   });
@@ -152,21 +155,20 @@ remarkLintPlayMdx()
 *looks like bold, but bold needs two asterisks*
 
 `;
-remarkLintPlayMdx()
-    .process(md, (_, file:VFile) => {
+    remarkLintPlayMdx().process(md, (_, file: VFile) => {
       expect(file.messages).toHaveLength(1);
-      expect(file.messages[0].reason).toMatch(/Emphasis should use `_` as a marker/);
+      expect(file.messages[0].reason).toMatch(
+        /Emphasis should use `_` as a marker/
+      );
     });
-  }); 
-
+  });
 
   it('accepts `**` for strong (bold)', () => {
     const md = `# title
 
 **this will be bold**
 `;
-remarkLintPlayMdx()
-    .process(md, (_, file:VFile) => {
+    remarkLintPlayMdx().process(md, (_, file: VFile) => {
       expect(file.messages).toHaveLength(0);
     });
   });
@@ -177,13 +179,13 @@ remarkLintPlayMdx()
 __this looks like an internal pragma or something__
 
 `;
-remarkLintPlayMdx()
-    .process(md, (_, file:VFile) => {
+    remarkLintPlayMdx().process(md, (_, file: VFile) => {
       expect(file.messages).toHaveLength(1);
-      expect(file.messages[0].reason).toMatch(/Strong should use `\*` as a marker/);
+      expect(file.messages[0].reason).toMatch(
+        /Strong should use `\*` as a marker/
+      );
     });
-  }); 
-
+  });
 
   it('rejects html `<div/>` elements', () => {
     const md = `# title
@@ -191,13 +193,11 @@ remarkLintPlayMdx()
 <div>content of div</div>
 
 `;
-remarkLintPlayMdx()
-    .process(md, (_, file:VFile) => {
+    remarkLintPlayMdx().process(md, (_, file: VFile) => {
       expect(file.messages).toHaveLength(1);
       expect(file.messages[0].reason).toMatch(REJECTED_ELEMENT_REASON);
     });
-  }); 
-
+  });
 
   it('accepts html `<!-- -->` comment elements', () => {
     const md = `# title
@@ -205,11 +205,10 @@ remarkLintPlayMdx()
 <!-- this is an html comment -->
 
 `;
-remarkLintPlayMdx()
-    .process(md, (_, file:VFile) => {
+    remarkLintPlayMdx().process(md, (_, file: VFile) => {
       expect(file.messages).toHaveLength(0);
     });
-  }); 
+  });
 
   it('complains about unacceptable `<BadElement/>` JSX elements', () => {
     const md = `# title
@@ -217,13 +216,11 @@ remarkLintPlayMdx()
 <BadElement>content of JSX element</BadElement>
 
 `;
-remarkLintPlayMdx()
-    .process(md, (_, file:VFile) => {
+    remarkLintPlayMdx().process(md, (_, file: VFile) => {
       expect(file.messages).toHaveLength(1);
       expect(file.messages[0].reason).toMatch(REJECTED_ELEMENT_REASON);
     });
-  }); 
-
+  });
 
   it('accepts specific `<OK/>` JSX elements', () => {
     const md = `# title
@@ -231,11 +228,10 @@ remarkLintPlayMdx()
 <OK>content of JSX element</OK>
 
 `;
-remarkLintPlayMdx(['OK'])
-    .process(md, (_, file:VFile) => {
+    remarkLintPlayMdx(['OK']).process(md, (_, file: VFile) => {
       expect(file.messages).toHaveLength(0);
     });
-  }); 
+  });
 
   it('accepts plain string attributes like `<OK msg="go"/>` ', () => {
     const md = `# title
@@ -243,11 +239,10 @@ remarkLintPlayMdx(['OK'])
 <OK msg="go">content of JSX element</OK>
 
 `;
-remarkLintPlayMdx(['OK'])
-    .process(md, (_, file:VFile) => {
+    remarkLintPlayMdx(['OK']).process(md, (_, file: VFile) => {
       expect(file.messages).toHaveLength(0);
     });
-  }); 
+  });
 
   it('rejects javascript event handler attributes like `<BadAttr onload="alert(1)"/>` ', () => {
     const md = `# title
@@ -255,12 +250,11 @@ remarkLintPlayMdx(['OK'])
 <BadAttr onload="alert(1)">content of JSX element</BadAttr>
 
 `;
-remarkLintPlayMdx(['BadAttr'])
-    .process(md, (_, file:VFile) => {
+    remarkLintPlayMdx(['BadAttr']).process(md, (_, file: VFile) => {
       expect(file.messages).toHaveLength(1);
       expect(file.messages[0].reason).toMatch(REJECTED_ATTR_REASON);
     });
-  }); 
+  });
 
   it('rejects javascript attributes which evaluate code like `<BadAttr noEvalAllowed={alert(1)}/>` ', () => {
     const md = `# title
@@ -268,12 +262,11 @@ remarkLintPlayMdx(['BadAttr'])
 <BadAttr noEvalAllowed={alert(1)}>content of JSX element</BadAttr>
 
 `;
-remarkLintPlayMdx(['BadAttr'])
-    .process(md, (_, file:VFile) => {
+    remarkLintPlayMdx(['BadAttr']).process(md, (_, file: VFile) => {
       expect(file.messages).toHaveLength(1);
       expect(file.messages[0].reason).toMatch(REJECTED_SYNTAX_REASON_PREFIX);
     });
-  }); 
+  });
 
   it('rejects javascript attributes which evaluate code like `<BadAttr noEvalAllowed={() => alert(1)}/>` ', () => {
     const md = `# title
@@ -281,11 +274,9 @@ remarkLintPlayMdx(['BadAttr'])
 <BadAttr noEvalAllowed={() => alert(1)}>content of JSX element</BadAttr>
 
 `;
-remarkLintPlayMdx(['BadAttr'])
-    .process(md, (_, file:VFile) => {
+    remarkLintPlayMdx(['BadAttr']).process(md, (_, file: VFile) => {
       expect(file.messages).toHaveLength(1);
       expect(file.messages[0].reason).toMatch(REJECTED_SYNTAX_REASON_PREFIX);
     });
-  }); 
-
+  });
 });
