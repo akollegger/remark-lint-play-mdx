@@ -27,6 +27,17 @@ remarkLintPlayMdx()
       expect(file.messages[0].reason).toMatch(/Remove 2 spaces between block quote and content/)
     });
   });
+  it('complains about blockquote initial indentation', () => {
+    const md = `# title
+
+ > This blockquote is indented before the blockquote character, which is bad
+`;
+remarkLintPlayMdx()
+    .process(md, (_, file:VFile) => {
+      expect(file.messages).toHaveLength(1);
+      expect(file.messages[0].reason).toMatch(/Remove 1 space between block quote and content/)
+    });
+  });
 
   it('accepts proper checkbox character style', () => {
     const md = `# title

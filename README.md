@@ -24,6 +24,23 @@ remarkLintPlayMdx(['BadAttr'])
     });
 ```
 
+## Examples of playable, safe MDX
+
+### Blockquotes
+
+Acceptable, use 1 space at start of line :
+
+```md
+> Use one space between the `>` blockquote character and the start of line.
+> This is ok, too!
+```
+
+Rejected, more than 1 space:
+
+```md
+>  Maybe hard to tell, but this line has 2 (!) spaces between the `>` and the start of the line.
+>   This is even more indented. 
+```
 
 # TSDX Bootstrap
 
