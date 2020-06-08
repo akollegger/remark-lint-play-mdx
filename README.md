@@ -1,15 +1,28 @@
-# Remark Play MDX
+# Remark Lint Play MDX
 
-Utilities for working with Markdown that will become MDX.
+Utilities for linting Markdown that will become playable, safe MDX.
 
 Accepted HTML elements:
 
 - `<!-- -->`
 
-Rejected HTML elements:
+Accepted JSX elements can be passed as an array to `remarkLintPlayMdx()`. 
 
-- `<p/>`
-- `<div/>`
+Usage example:
+
+```
+import {remarkLintPlayMdx} from '@akollegger/remark-lint-play-mdx'
+
+const remarkLintPlayMdx(['BadAttr'])
+
+remarkLintPlayMdx(['BadAttr'])
+    .process(md, (_, file:VFile) => {
+      // file will have messages for any found errors
+      file.messages.forEach ( (msg:string) => {
+        console.error(msg);
+      })
+    });
+```
 
 
 # TSDX Bootstrap

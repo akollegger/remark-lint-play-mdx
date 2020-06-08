@@ -3,7 +3,7 @@ import {VFile} from 'vfile'
 import {remarkLintPlayMdx} from '../src/'
 import {REJECTED_ELEMENT_REASON, REJECTED_ATTR_REASON, REJECTED_SYNTAX_REASON_PREFIX} from '../src/remark-lint-restrict-jsx'
 
-describe('remark play-styled MDX', () => {
+describe('remark lint playable MDX', () => {
   it('accepts basic markdown', () => {
     const md = `# title
 - one
