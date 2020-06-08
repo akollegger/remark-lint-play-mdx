@@ -2,7 +2,7 @@
   "name": "@akollegger/remark-lint-play-mdx",
   "author": "Andreas Kollegger",
   "module": "dist/remark-lint-play-mdx.esm.js",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "publishConfig": {
     "access": "public"
   },
