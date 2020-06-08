@@ -22,7 +22,7 @@
     "test": "tsdx test --watch",
     "lint": "tsdx lint",
     "prepare": "tsdx build",
-		"release": "np"
+    "release": "np"
   },
   "husky": {
     "hooks": {
@@ -58,7 +58,7 @@
     "tslib": "^2.0.0",
     "typescript": "^3.9.5"
   },
-	"np": {
+  "np": {
     "yarn": false,
     "tests": false
   }
