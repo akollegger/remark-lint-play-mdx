@@ -1,0 +1,56 @@
+{
+  "name": "remark-play-mdx",
+  "author": "Andreas Kollegger",
+  "module": "dist/remark-play-mdx.esm.js",
+  "version": "0.1.0",
+  "license": "MIT",
+  "main": "dist/index.js",
+  "typings": "dist/index.d.ts",
+  "files": [
+    "dist",
+    "src"
+  ],
+  "engines": {
+    "node": ">=10"
+  },
+  "scripts": {
+    "start": "tsdx watch",
+    "build": "tsdx build",
+    "test": "tsdx test --watch",
+    "lint": "tsdx lint",
+    "prepare": "tsdx build"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "tsdx lint"
+    }
+  },
+  "prettier": {
+    "printWidth": 80,
+    "semi": true,
+    "singleQuote": true,
+    "trailingComma": "es5"
+  },
+  "peerDependencies": {},
+  "dependencies": {
+    "@literal-jsx/parser": "^0.1.7",
+    "remark": "^12.0.0",
+    "remark-lint-blockquote-indentation": "^2.0.0",
+    "remark-lint-checkbox-character-style": "^2.0.0",
+    "remark-lint-code-block-style": "^2.0.0",
+    "remark-lint-no-html": "^2.0.0",
+    "remark-mdx": "^1.6.5",
+    "remark-preset-lint-consistent": "^3.0.0",
+    "remark-preset-lint-recommended": "^4.0.0",
+    "unified-lint-rule": "^1.0.5",
+    "unist-util-generated": "^1.1.5",
+    "vfile-message": "^2.0.4",
+    "vfile-reporter": "^6.0.1"
+  },
+  "devDependencies": {
+    "husky": "^4.2.5",
+    "tsdx": "^0.13.2",
+    "tslib": "^2.0.0",
+    "typescript": "^3.9.5"
+  }
+}
